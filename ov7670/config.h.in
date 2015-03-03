@@ -1,4 +1,4 @@
-/* object_sensor/config.h.in.  Generated from configure.ac by autoheader.  */
+/* config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* Define to 1 if you have the <assert.h> header file. */
 #undef HAVE_ASSERT_H

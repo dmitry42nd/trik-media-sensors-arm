@@ -230,7 +230,7 @@ m4trace:configure.ac:6: -1- m4_pattern_allow([^am__tar$])
 m4trace:configure.ac:6: -1- AC_SUBST([am__untar])
 m4trace:configure.ac:6: -1- AC_SUBST_TRACE([am__untar])
 m4trace:configure.ac:6: -1- m4_pattern_allow([^am__untar$])
-m4trace:configure.ac:8: -1- AC_CONFIG_HEADERS([object_sensor/config.h])
+m4trace:configure.ac:8: -1- AC_CONFIG_HEADERS([config.h])
 m4trace:configure.ac:12: -1- _m4_warn([obsolete], [The macro `AC_GNU_SOURCE' is obsolete.
 You should run autoupdate.], [../../lib/autoconf/specific.m4:314: AC_GNU_SOURCE is expanded from...
 configure.ac:12: the top level])

@@ -58,7 +58,7 @@ am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
-CONFIG_HEADER = $(top_builddir)/object_sensor/config.h
+CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__EXEEXT_1 = object_sensors_arm$(EXEEXT)
@@ -68,11 +68,9 @@ am_object_sensors_arm_OBJECTS = main.$(OBJEXT) module_ce.$(OBJEXT) \
 	module_fb.$(OBJEXT) module_rc.$(OBJEXT) module_v4l2.$(OBJEXT) \
 	runtime.$(OBJEXT) thread_input.$(OBJEXT) \
 	thread_video.$(OBJEXT)
-nodist_object_sensors_arm_OBJECTS =
-object_sensors_arm_OBJECTS = $(am_object_sensors_arm_OBJECTS) \
-	$(nodist_object_sensors_arm_OBJECTS)
+object_sensors_arm_OBJECTS = $(am_object_sensors_arm_OBJECTS)
 object_sensors_arm_LDADD = $(LDADD)
-DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)/object_sensor
+DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
@@ -85,8 +83,7 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(object_sensors_arm_SOURCES) \
-	$(nodist_object_sensors_arm_SOURCES)
+SOURCES = $(object_sensors_arm_SOURCES)
 DIST_SOURCES = $(object_sensors_arm_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
@@ -222,17 +219,18 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 MAIN_TARGET_NAME = object_sensors_arm
-AM_CPPFLAGS = -I ../include -Wall -Wextra
+AM_CPPFLAGS = -include../trik_vidtranscode_cv.h -I../include -Wall -Wextra 
 AM_CXXFLAGS = -Weffc++
-nodist_object_sensors_arm_SOURCES = $(srcdir)/config.h
+
+#nodist_object_sensors_arm_SOURCES       = $(srcdir)/config.h
 object_sensors_arm_SOURCES = $(srcdir)/../src/main.c \
-                          $(srcdir)/../src/module_ce.c \
-                          $(srcdir)/../src/module_fb.c \
-                          $(srcdir)/../src/module_rc.c \
-                          $(srcdir)/../src/module_v4l2.c \
-                          $(srcdir)/../src/runtime.c \
-                          $(srcdir)/../src/thread_input.c \
-                          $(srcdir)/../src/thread_video.c
+		                          $(srcdir)/../src/module_ce.c \
+			                  $(srcdir)/../src/module_fb.c \
+                        		  $(srcdir)/../src/module_rc.c \
+		                          $(srcdir)/../src/module_v4l2.c \
+		                          $(srcdir)/../src/runtime.c \
+		                          $(srcdir)/../src/thread_input.c \
+		                          $(srcdir)/../src/thread_video.c
 
 all: all-am
 
