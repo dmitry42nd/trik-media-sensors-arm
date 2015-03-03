@@ -1,0 +1,1 @@
+../../../dsp/ov7670/object_sensor/trik_vidtranscode_cv.h

@@ -1,0 +1,10 @@
+1) Add motor noise and capture signals
+2) Add on-screen graphics - buttons icons, distance to target
+3) Add auto-color-pick algorithm
+4) Add range sensor
+5) Add encoder motors
+6) Add image filtering and clustering: denoise, clasterize, pick the largest
+7) Add tags, remove outdated stuff, fix algorithm implementation: specialize template, move static data to allocated
+8) Optimize memcpy's (v4l2 with our cams, fb&qt - to be designed)
+9) Create multiple DSP worker threads and combine them with memcpy's?
+10) If not, create two sets of DSP buffer and mix them - this way it might speed up DSP's cache flushes
