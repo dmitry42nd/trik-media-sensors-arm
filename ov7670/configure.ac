@@ -4,7 +4,8 @@
 AC_PREREQ([2.65])
 AC_INIT([trik-media-sensors], [0.0.2-trunk])
 AM_INIT_AUTOMAKE([foreign color-tests -Wall -Werror])
-AC_CONFIG_SRCDIR([object_sensor/src])
+AC_CONFIG_SRCDIR([object_sensor/src
+		  line_sensor/src])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -58,7 +59,9 @@ LIBS+=" ${PKGCONFIG_LIBS}"
 
 AC_CONFIG_FILES([Makefile
 		 object_sensor/Makefile
-		 object_sensor/build/Makefile])
+		 object_sensor/build/Makefile
+		 line_sensor/Makefile
+                 line_sensor/build/Makefile])
 
 AC_OUTPUT
 
