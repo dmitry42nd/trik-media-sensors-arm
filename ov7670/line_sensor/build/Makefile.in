@@ -50,30 +50,27 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = rover-cv$(EXEEXT)
-subdir = build
+bin_PROGRAMS = $(am__EXEEXT_1)
+subdir = line_sensor/build
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/depcomp
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
-	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
-	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
-	$(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
+am__EXEEXT_1 = line_sensor_arm$(EXEEXT)
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_rover_cv_OBJECTS = main.$(OBJEXT) module_ce.$(OBJEXT) \
+am_line_sensor_arm_OBJECTS = main.$(OBJEXT) module_ce.$(OBJEXT) \
 	module_fb.$(OBJEXT) module_rc.$(OBJEXT) module_v4l2.$(OBJEXT) \
 	runtime.$(OBJEXT) thread_input.$(OBJEXT) \
 	thread_video.$(OBJEXT)
-nodist_rover_cv_OBJECTS =
-rover_cv_OBJECTS = $(am_rover_cv_OBJECTS) $(nodist_rover_cv_OBJECTS)
-rover_cv_LDADD = $(LDADD)
+line_sensor_arm_OBJECTS = $(am_line_sensor_arm_OBJECTS)
+line_sensor_arm_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -87,8 +84,8 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(rover_cv_SOURCES) $(nodist_rover_cv_SOURCES)
-DIST_SOURCES = $(rover_cv_SOURCES)
+SOURCES = $(line_sensor_arm_SOURCES)
+DIST_SOURCES = $(line_sensor_arm_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -221,17 +218,18 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CPPFLAGS = -I$(top_srcdir)/include -Wall -Wextra
+MAIN_TARGET_NAME = line_sensor_arm
+DSP_HEADERS_DIR = $(srcdir)/../../../../dsp/ov7670/line_sensor/
+AM_CPPFLAGS = -I$(DSP_HEADERS_DIR) -I../include -Wall -Wextra
 AM_CXXFLAGS = -Weffc++
-nodist_rover_cv_SOURCES = $(top_srcdir)/config.h
-rover_cv_SOURCES = $(top_srcdir)/src/main.c \
-			  $(top_srcdir)/src/module_ce.c \
-			  $(top_srcdir)/src/module_fb.c \
-			  $(top_srcdir)/src/module_rc.c \
-			  $(top_srcdir)/src/module_v4l2.c \
-			  $(top_srcdir)/src/runtime.c \
-			  $(top_srcdir)/src/thread_input.c \
-			  $(top_srcdir)/src/thread_video.c
+line_sensor_arm_SOURCES = $(srcdir)/../src/main.c \
+			  $(srcdir)/../src/module_ce.c \
+			  $(srcdir)/../src/module_fb.c \
+			  $(srcdir)/../src/module_rc.c \
+			  $(srcdir)/../src/module_v4l2.c \
+			  $(srcdir)/../src/runtime.c \
+			  $(srcdir)/../src/thread_input.c \
+			  $(srcdir)/../src/thread_video.c
 
 all: all-am
 
@@ -246,9 +244,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign build/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign line_sensor/build/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign build/Makefile
+	  $(AUTOMAKE) --foreign line_sensor/build/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -313,9 +311,9 @@ clean-binPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-rover-cv$(EXEEXT): $(rover_cv_OBJECTS) $(rover_cv_DEPENDENCIES) $(EXTRA_rover_cv_DEPENDENCIES) 
-	@rm -f rover-cv$(EXEEXT)
-	$(LINK) $(rover_cv_OBJECTS) $(rover_cv_LDADD) $(LIBS)
+line_sensor_arm$(EXEEXT): $(line_sensor_arm_OBJECTS) $(line_sensor_arm_DEPENDENCIES) $(EXTRA_line_sensor_arm_DEPENDENCIES) 
+	@rm -f line_sensor_arm$(EXEEXT)
+	$(LINK) $(line_sensor_arm_OBJECTS) $(line_sensor_arm_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -353,117 +351,117 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LTCOMPILE) -c -o $@ $<
 
-main.o: $(top_srcdir)/src/main.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT main.o -MD -MP -MF $(DEPDIR)/main.Tpo -c -o main.o `test -f '$(top_srcdir)/src/main.c' || echo '$(srcdir)/'`$(top_srcdir)/src/main.c
+main.o: $(srcdir)/../src/main.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT main.o -MD -MP -MF $(DEPDIR)/main.Tpo -c -o main.o `test -f '$(srcdir)/../src/main.c' || echo '$(srcdir)/'`$(srcdir)/../src/main.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/main.Tpo $(DEPDIR)/main.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(top_srcdir)/src/main.c' object='main.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../src/main.c' object='main.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o main.o `test -f '$(top_srcdir)/src/main.c' || echo '$(srcdir)/'`$(top_srcdir)/src/main.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o main.o `test -f '$(srcdir)/../src/main.c' || echo '$(srcdir)/'`$(srcdir)/../src/main.c
 
-main.obj: $(top_srcdir)/src/main.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT main.obj -MD -MP -MF $(DEPDIR)/main.Tpo -c -o main.obj `if test -f '$(top_srcdir)/src/main.c'; then $(CYGPATH_W) '$(top_srcdir)/src/main.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/main.c'; fi`
+main.obj: $(srcdir)/../src/main.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT main.obj -MD -MP -MF $(DEPDIR)/main.Tpo -c -o main.obj `if test -f '$(srcdir)/../src/main.c'; then $(CYGPATH_W) '$(srcdir)/../src/main.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../src/main.c'; fi`
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/main.Tpo $(DEPDIR)/main.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(top_srcdir)/src/main.c' object='main.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../src/main.c' object='main.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o main.obj `if test -f '$(top_srcdir)/src/main.c'; then $(CYGPATH_W) '$(top_srcdir)/src/main.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/main.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o main.obj `if test -f '$(srcdir)/../src/main.c'; then $(CYGPATH_W) '$(srcdir)/../src/main.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../src/main.c'; fi`
 
-module_ce.o: $(top_srcdir)/src/module_ce.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT module_ce.o -MD -MP -MF $(DEPDIR)/module_ce.Tpo -c -o module_ce.o `test -f '$(top_srcdir)/src/module_ce.c' || echo '$(srcdir)/'`$(top_srcdir)/src/module_ce.c
+module_ce.o: $(srcdir)/../src/module_ce.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT module_ce.o -MD -MP -MF $(DEPDIR)/module_ce.Tpo -c -o module_ce.o `test -f '$(srcdir)/../src/module_ce.c' || echo '$(srcdir)/'`$(srcdir)/../src/module_ce.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/module_ce.Tpo $(DEPDIR)/module_ce.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(top_srcdir)/src/module_ce.c' object='module_ce.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../src/module_ce.c' object='module_ce.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o module_ce.o `test -f '$(top_srcdir)/src/module_ce.c' || echo '$(srcdir)/'`$(top_srcdir)/src/module_ce.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o module_ce.o `test -f '$(srcdir)/../src/module_ce.c' || echo '$(srcdir)/'`$(srcdir)/../src/module_ce.c
 
-module_ce.obj: $(top_srcdir)/src/module_ce.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT module_ce.obj -MD -MP -MF $(DEPDIR)/module_ce.Tpo -c -o module_ce.obj `if test -f '$(top_srcdir)/src/module_ce.c'; then $(CYGPATH_W) '$(top_srcdir)/src/module_ce.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/module_ce.c'; fi`
+module_ce.obj: $(srcdir)/../src/module_ce.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT module_ce.obj -MD -MP -MF $(DEPDIR)/module_ce.Tpo -c -o module_ce.obj `if test -f '$(srcdir)/../src/module_ce.c'; then $(CYGPATH_W) '$(srcdir)/../src/module_ce.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../src/module_ce.c'; fi`
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/module_ce.Tpo $(DEPDIR)/module_ce.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(top_srcdir)/src/module_ce.c' object='module_ce.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../src/module_ce.c' object='module_ce.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o module_ce.obj `if test -f '$(top_srcdir)/src/module_ce.c'; then $(CYGPATH_W) '$(top_srcdir)/src/module_ce.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/module_ce.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o module_ce.obj `if test -f '$(srcdir)/../src/module_ce.c'; then $(CYGPATH_W) '$(srcdir)/../src/module_ce.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../src/module_ce.c'; fi`
 
-module_fb.o: $(top_srcdir)/src/module_fb.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT module_fb.o -MD -MP -MF $(DEPDIR)/module_fb.Tpo -c -o module_fb.o `test -f '$(top_srcdir)/src/module_fb.c' || echo '$(srcdir)/'`$(top_srcdir)/src/module_fb.c
+module_fb.o: $(srcdir)/../src/module_fb.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT module_fb.o -MD -MP -MF $(DEPDIR)/module_fb.Tpo -c -o module_fb.o `test -f '$(srcdir)/../src/module_fb.c' || echo '$(srcdir)/'`$(srcdir)/../src/module_fb.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/module_fb.Tpo $(DEPDIR)/module_fb.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(top_srcdir)/src/module_fb.c' object='module_fb.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../src/module_fb.c' object='module_fb.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o module_fb.o `test -f '$(top_srcdir)/src/module_fb.c' || echo '$(srcdir)/'`$(top_srcdir)/src/module_fb.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o module_fb.o `test -f '$(srcdir)/../src/module_fb.c' || echo '$(srcdir)/'`$(srcdir)/../src/module_fb.c
 
-module_fb.obj: $(top_srcdir)/src/module_fb.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT module_fb.obj -MD -MP -MF $(DEPDIR)/module_fb.Tpo -c -o module_fb.obj `if test -f '$(top_srcdir)/src/module_fb.c'; then $(CYGPATH_W) '$(top_srcdir)/src/module_fb.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/module_fb.c'; fi`
+module_fb.obj: $(srcdir)/../src/module_fb.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT module_fb.obj -MD -MP -MF $(DEPDIR)/module_fb.Tpo -c -o module_fb.obj `if test -f '$(srcdir)/../src/module_fb.c'; then $(CYGPATH_W) '$(srcdir)/../src/module_fb.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../src/module_fb.c'; fi`
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/module_fb.Tpo $(DEPDIR)/module_fb.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(top_srcdir)/src/module_fb.c' object='module_fb.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../src/module_fb.c' object='module_fb.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o module_fb.obj `if test -f '$(top_srcdir)/src/module_fb.c'; then $(CYGPATH_W) '$(top_srcdir)/src/module_fb.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/module_fb.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o module_fb.obj `if test -f '$(srcdir)/../src/module_fb.c'; then $(CYGPATH_W) '$(srcdir)/../src/module_fb.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../src/module_fb.c'; fi`
 
-module_rc.o: $(top_srcdir)/src/module_rc.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT module_rc.o -MD -MP -MF $(DEPDIR)/module_rc.Tpo -c -o module_rc.o `test -f '$(top_srcdir)/src/module_rc.c' || echo '$(srcdir)/'`$(top_srcdir)/src/module_rc.c
+module_rc.o: $(srcdir)/../src/module_rc.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT module_rc.o -MD -MP -MF $(DEPDIR)/module_rc.Tpo -c -o module_rc.o `test -f '$(srcdir)/../src/module_rc.c' || echo '$(srcdir)/'`$(srcdir)/../src/module_rc.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/module_rc.Tpo $(DEPDIR)/module_rc.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(top_srcdir)/src/module_rc.c' object='module_rc.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../src/module_rc.c' object='module_rc.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o module_rc.o `test -f '$(top_srcdir)/src/module_rc.c' || echo '$(srcdir)/'`$(top_srcdir)/src/module_rc.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o module_rc.o `test -f '$(srcdir)/../src/module_rc.c' || echo '$(srcdir)/'`$(srcdir)/../src/module_rc.c
 
-module_rc.obj: $(top_srcdir)/src/module_rc.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT module_rc.obj -MD -MP -MF $(DEPDIR)/module_rc.Tpo -c -o module_rc.obj `if test -f '$(top_srcdir)/src/module_rc.c'; then $(CYGPATH_W) '$(top_srcdir)/src/module_rc.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/module_rc.c'; fi`
+module_rc.obj: $(srcdir)/../src/module_rc.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT module_rc.obj -MD -MP -MF $(DEPDIR)/module_rc.Tpo -c -o module_rc.obj `if test -f '$(srcdir)/../src/module_rc.c'; then $(CYGPATH_W) '$(srcdir)/../src/module_rc.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../src/module_rc.c'; fi`
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/module_rc.Tpo $(DEPDIR)/module_rc.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(top_srcdir)/src/module_rc.c' object='module_rc.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../src/module_rc.c' object='module_rc.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o module_rc.obj `if test -f '$(top_srcdir)/src/module_rc.c'; then $(CYGPATH_W) '$(top_srcdir)/src/module_rc.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/module_rc.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o module_rc.obj `if test -f '$(srcdir)/../src/module_rc.c'; then $(CYGPATH_W) '$(srcdir)/../src/module_rc.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../src/module_rc.c'; fi`
 
-module_v4l2.o: $(top_srcdir)/src/module_v4l2.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT module_v4l2.o -MD -MP -MF $(DEPDIR)/module_v4l2.Tpo -c -o module_v4l2.o `test -f '$(top_srcdir)/src/module_v4l2.c' || echo '$(srcdir)/'`$(top_srcdir)/src/module_v4l2.c
+module_v4l2.o: $(srcdir)/../src/module_v4l2.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT module_v4l2.o -MD -MP -MF $(DEPDIR)/module_v4l2.Tpo -c -o module_v4l2.o `test -f '$(srcdir)/../src/module_v4l2.c' || echo '$(srcdir)/'`$(srcdir)/../src/module_v4l2.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/module_v4l2.Tpo $(DEPDIR)/module_v4l2.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(top_srcdir)/src/module_v4l2.c' object='module_v4l2.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../src/module_v4l2.c' object='module_v4l2.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o module_v4l2.o `test -f '$(top_srcdir)/src/module_v4l2.c' || echo '$(srcdir)/'`$(top_srcdir)/src/module_v4l2.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o module_v4l2.o `test -f '$(srcdir)/../src/module_v4l2.c' || echo '$(srcdir)/'`$(srcdir)/../src/module_v4l2.c
 
-module_v4l2.obj: $(top_srcdir)/src/module_v4l2.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT module_v4l2.obj -MD -MP -MF $(DEPDIR)/module_v4l2.Tpo -c -o module_v4l2.obj `if test -f '$(top_srcdir)/src/module_v4l2.c'; then $(CYGPATH_W) '$(top_srcdir)/src/module_v4l2.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/module_v4l2.c'; fi`
+module_v4l2.obj: $(srcdir)/../src/module_v4l2.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT module_v4l2.obj -MD -MP -MF $(DEPDIR)/module_v4l2.Tpo -c -o module_v4l2.obj `if test -f '$(srcdir)/../src/module_v4l2.c'; then $(CYGPATH_W) '$(srcdir)/../src/module_v4l2.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../src/module_v4l2.c'; fi`
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/module_v4l2.Tpo $(DEPDIR)/module_v4l2.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(top_srcdir)/src/module_v4l2.c' object='module_v4l2.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../src/module_v4l2.c' object='module_v4l2.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o module_v4l2.obj `if test -f '$(top_srcdir)/src/module_v4l2.c'; then $(CYGPATH_W) '$(top_srcdir)/src/module_v4l2.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/module_v4l2.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o module_v4l2.obj `if test -f '$(srcdir)/../src/module_v4l2.c'; then $(CYGPATH_W) '$(srcdir)/../src/module_v4l2.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../src/module_v4l2.c'; fi`
 
-runtime.o: $(top_srcdir)/src/runtime.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT runtime.o -MD -MP -MF $(DEPDIR)/runtime.Tpo -c -o runtime.o `test -f '$(top_srcdir)/src/runtime.c' || echo '$(srcdir)/'`$(top_srcdir)/src/runtime.c
+runtime.o: $(srcdir)/../src/runtime.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT runtime.o -MD -MP -MF $(DEPDIR)/runtime.Tpo -c -o runtime.o `test -f '$(srcdir)/../src/runtime.c' || echo '$(srcdir)/'`$(srcdir)/../src/runtime.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/runtime.Tpo $(DEPDIR)/runtime.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(top_srcdir)/src/runtime.c' object='runtime.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../src/runtime.c' object='runtime.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o runtime.o `test -f '$(top_srcdir)/src/runtime.c' || echo '$(srcdir)/'`$(top_srcdir)/src/runtime.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o runtime.o `test -f '$(srcdir)/../src/runtime.c' || echo '$(srcdir)/'`$(srcdir)/../src/runtime.c
 
-runtime.obj: $(top_srcdir)/src/runtime.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT runtime.obj -MD -MP -MF $(DEPDIR)/runtime.Tpo -c -o runtime.obj `if test -f '$(top_srcdir)/src/runtime.c'; then $(CYGPATH_W) '$(top_srcdir)/src/runtime.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/runtime.c'; fi`
+runtime.obj: $(srcdir)/../src/runtime.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT runtime.obj -MD -MP -MF $(DEPDIR)/runtime.Tpo -c -o runtime.obj `if test -f '$(srcdir)/../src/runtime.c'; then $(CYGPATH_W) '$(srcdir)/../src/runtime.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../src/runtime.c'; fi`
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/runtime.Tpo $(DEPDIR)/runtime.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(top_srcdir)/src/runtime.c' object='runtime.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../src/runtime.c' object='runtime.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o runtime.obj `if test -f '$(top_srcdir)/src/runtime.c'; then $(CYGPATH_W) '$(top_srcdir)/src/runtime.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/runtime.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o runtime.obj `if test -f '$(srcdir)/../src/runtime.c'; then $(CYGPATH_W) '$(srcdir)/../src/runtime.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../src/runtime.c'; fi`
 
-thread_input.o: $(top_srcdir)/src/thread_input.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT thread_input.o -MD -MP -MF $(DEPDIR)/thread_input.Tpo -c -o thread_input.o `test -f '$(top_srcdir)/src/thread_input.c' || echo '$(srcdir)/'`$(top_srcdir)/src/thread_input.c
+thread_input.o: $(srcdir)/../src/thread_input.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT thread_input.o -MD -MP -MF $(DEPDIR)/thread_input.Tpo -c -o thread_input.o `test -f '$(srcdir)/../src/thread_input.c' || echo '$(srcdir)/'`$(srcdir)/../src/thread_input.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/thread_input.Tpo $(DEPDIR)/thread_input.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(top_srcdir)/src/thread_input.c' object='thread_input.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../src/thread_input.c' object='thread_input.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o thread_input.o `test -f '$(top_srcdir)/src/thread_input.c' || echo '$(srcdir)/'`$(top_srcdir)/src/thread_input.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o thread_input.o `test -f '$(srcdir)/../src/thread_input.c' || echo '$(srcdir)/'`$(srcdir)/../src/thread_input.c
 
-thread_input.obj: $(top_srcdir)/src/thread_input.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT thread_input.obj -MD -MP -MF $(DEPDIR)/thread_input.Tpo -c -o thread_input.obj `if test -f '$(top_srcdir)/src/thread_input.c'; then $(CYGPATH_W) '$(top_srcdir)/src/thread_input.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/thread_input.c'; fi`
+thread_input.obj: $(srcdir)/../src/thread_input.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT thread_input.obj -MD -MP -MF $(DEPDIR)/thread_input.Tpo -c -o thread_input.obj `if test -f '$(srcdir)/../src/thread_input.c'; then $(CYGPATH_W) '$(srcdir)/../src/thread_input.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../src/thread_input.c'; fi`
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/thread_input.Tpo $(DEPDIR)/thread_input.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(top_srcdir)/src/thread_input.c' object='thread_input.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../src/thread_input.c' object='thread_input.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o thread_input.obj `if test -f '$(top_srcdir)/src/thread_input.c'; then $(CYGPATH_W) '$(top_srcdir)/src/thread_input.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/thread_input.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o thread_input.obj `if test -f '$(srcdir)/../src/thread_input.c'; then $(CYGPATH_W) '$(srcdir)/../src/thread_input.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../src/thread_input.c'; fi`
 
-thread_video.o: $(top_srcdir)/src/thread_video.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT thread_video.o -MD -MP -MF $(DEPDIR)/thread_video.Tpo -c -o thread_video.o `test -f '$(top_srcdir)/src/thread_video.c' || echo '$(srcdir)/'`$(top_srcdir)/src/thread_video.c
+thread_video.o: $(srcdir)/../src/thread_video.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT thread_video.o -MD -MP -MF $(DEPDIR)/thread_video.Tpo -c -o thread_video.o `test -f '$(srcdir)/../src/thread_video.c' || echo '$(srcdir)/'`$(srcdir)/../src/thread_video.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/thread_video.Tpo $(DEPDIR)/thread_video.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(top_srcdir)/src/thread_video.c' object='thread_video.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../src/thread_video.c' object='thread_video.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o thread_video.o `test -f '$(top_srcdir)/src/thread_video.c' || echo '$(srcdir)/'`$(top_srcdir)/src/thread_video.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o thread_video.o `test -f '$(srcdir)/../src/thread_video.c' || echo '$(srcdir)/'`$(srcdir)/../src/thread_video.c
 
-thread_video.obj: $(top_srcdir)/src/thread_video.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT thread_video.obj -MD -MP -MF $(DEPDIR)/thread_video.Tpo -c -o thread_video.obj `if test -f '$(top_srcdir)/src/thread_video.c'; then $(CYGPATH_W) '$(top_srcdir)/src/thread_video.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/thread_video.c'; fi`
+thread_video.obj: $(srcdir)/../src/thread_video.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT thread_video.obj -MD -MP -MF $(DEPDIR)/thread_video.Tpo -c -o thread_video.obj `if test -f '$(srcdir)/../src/thread_video.c'; then $(CYGPATH_W) '$(srcdir)/../src/thread_video.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../src/thread_video.c'; fi`
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/thread_video.Tpo $(DEPDIR)/thread_video.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(top_srcdir)/src/thread_video.c' object='thread_video.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../src/thread_video.c' object='thread_video.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o thread_video.obj `if test -f '$(top_srcdir)/src/thread_video.c'; then $(CYGPATH_W) '$(top_srcdir)/src/thread_video.c'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/thread_video.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o thread_video.obj `if test -f '$(srcdir)/../src/thread_video.c'; then $(CYGPATH_W) '$(srcdir)/../src/thread_video.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../src/thread_video.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

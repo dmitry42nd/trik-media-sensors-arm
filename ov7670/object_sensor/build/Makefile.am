@@ -3,7 +3,6 @@ DSP_HEADERS_DIR		= $(srcdir)/../../../../dsp/ov7670/object_sensor/
 
 AM_CPPFLAGS             = -I$(DSP_HEADERS_DIR) -I../include -Wall -Wextra 
 AM_CXXFLAGS             = -Weffc++
-VPATH                   += ../src
 
 bin_PROGRAMS            = $(MAIN_TARGET_NAME)
 

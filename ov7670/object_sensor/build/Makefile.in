@@ -14,6 +14,7 @@
 
 @SET_MAKE@
 
+VPATH = @srcdir@
 am__make_dryrun = \
   { \
     am__dry=no; \
@@ -93,7 +94,6 @@ am__can_run_installinfo = \
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-VPATH = @srcdir@ ../src
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
 AR = @AR@
@@ -219,19 +219,17 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 MAIN_TARGET_NAME = object_sensors_arm
-DSP_HEADERS_DIR = ..
+DSP_HEADERS_DIR = $(srcdir)/../../../../dsp/ov7670/object_sensor/
 AM_CPPFLAGS = -I$(DSP_HEADERS_DIR) -I../include -Wall -Wextra 
 AM_CXXFLAGS = -Weffc++
-
-#nodist_object_sensors_arm_SOURCES       = $(srcdir)/config.h
 object_sensors_arm_SOURCES = $(srcdir)/../src/main.c \
-		                          $(srcdir)/../src/module_ce.c \
-			                  $(srcdir)/../src/module_fb.c \
-                        		  $(srcdir)/../src/module_rc.c \
-		                          $(srcdir)/../src/module_v4l2.c \
-		                          $(srcdir)/../src/runtime.c \
-		                          $(srcdir)/../src/thread_input.c \
-		                          $(srcdir)/../src/thread_video.c
+		                  $(srcdir)/../src/module_ce.c \
+			          $(srcdir)/../src/module_fb.c \
+                        	  $(srcdir)/../src/module_rc.c \
+		                  $(srcdir)/../src/module_v4l2.c \
+		                  $(srcdir)/../src/runtime.c \
+		                  $(srcdir)/../src/thread_input.c \
+		                  $(srcdir)/../src/thread_video.c
 
 all: all-am
 
