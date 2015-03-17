@@ -1,21 +1,22 @@
-AM_CPPFLAGS		= -I$(top_srcdir)/include -Wall -Wextra
+MAIN_TARGET_NAME        = edge_line_sensor_arm
+DSP_HEADERS_DIR         = $(srcdir)/../../../../dsp/ov7670/edge_line_sensor/
+
+AM_CPPFLAGS		= -I$(DSP_HEADERS_DIR) -I../include -Wall -Wextra
 AM_CXXFLAGS		= -Weffc++
 
-bin_PROGRAMS		= rover-cv
-nodist_rover_cv_SOURCES	= $(top_srcdir)/config.h
+bin_PROGRAMS		= $(MAIN_TARGET_NAME)
 
-rover_cv_SOURCES	= $(top_srcdir)/src/main.c \
-			  $(top_srcdir)/src/module_ce.c \
-			  $(top_srcdir)/src/module_fb.c \
-			  $(top_srcdir)/src/module_rc.c \
-			  $(top_srcdir)/src/module_v4l2.c \
-			  $(top_srcdir)/src/runtime.c \
-			  $(top_srcdir)/src/thread_input.c \
-			  $(top_srcdir)/src/thread_video.c
+edge_line_sensor_arm_SOURCES	= $(srcdir)/../src/main.c \
+				  $(srcdir)/../src/module_ce.c \
+				  $(srcdir)/../src/module_fb.c \
+				  $(srcdir)/../src/module_rc.c \
+				  $(srcdir)/../src/module_v4l2.c \
+				  $(srcdir)/../src/runtime.c \
+				  $(srcdir)/../src/thread_input.c \
+				  $(srcdir)/../src/thread_video.c
 
 
 #TESTS			= test-xxx
 #noinst_PROGRAMS		= $(TESTS)
 #SOURCES			= $(top_srcdir)/tests/test.h
 #test_xxx_SOURCES	= $(SOURCES) $(top_srcdir)/tests/test_xxx.c
-
