@@ -63,7 +63,9 @@ AC_CONFIG_FILES([Makefile
 		 line_sensor/Makefile
                  line_sensor/build/Makefile
                  edge_line_sensor/Makefile
-                 edge_line_sensor/build/Makefile])
+                 edge_line_sensor/build/Makefile
+                 mxn_sensor/Makefile
+                 mxn_sensor/build/Makefile])
 
 AC_OUTPUT
 

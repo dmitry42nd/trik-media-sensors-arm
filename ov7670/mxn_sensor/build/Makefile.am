@@ -1,17 +1,19 @@
-AM_CPPFLAGS		= -I$(top_srcdir)/include -Wall -Wextra
-AM_CXXFLAGS		= -Weffc++
+MAIN_TARGET_NAME        = mxn_sensor_arm
+DSP_HEADERS_DIR         = $(srcdir)/../../../../dsp/ov7670/mxn_sensor/
 
-bin_PROGRAMS		= rover-cv
-nodist_rover_cv_SOURCES	= $(top_srcdir)/config.h
+AM_CPPFLAGS             = -I$(DSP_HEADERS_DIR) -I../include -Wall -Wextra
+AM_CXXFLAGS             = -Weffc++
 
-rover_cv_SOURCES	= $(top_srcdir)/src/main.c \
-			  $(top_srcdir)/src/module_ce.c \
-			  $(top_srcdir)/src/module_fb.c \
-			  $(top_srcdir)/src/module_rc.c \
-			  $(top_srcdir)/src/module_v4l2.c \
-			  $(top_srcdir)/src/runtime.c \
-			  $(top_srcdir)/src/thread_input.c \
-			  $(top_srcdir)/src/thread_video.c
+bin_PROGRAMS            = $(MAIN_TARGET_NAME)
+
+mxn_sensor_arm_SOURCES = $(srcdir)/../src/main.c \
+                         $(srcdir)/../src/module_ce.c \
+                         $(srcdir)/../src/module_fb.c \
+                         $(srcdir)/../src/module_rc.c \
+                         $(srcdir)/../src/module_v4l2.c \
+                         $(srcdir)/../src/runtime.c \
+                         $(srcdir)/../src/thread_input.c \
+                         $(srcdir)/../src/thread_video.c
 
 
 #TESTS			= test-xxx
