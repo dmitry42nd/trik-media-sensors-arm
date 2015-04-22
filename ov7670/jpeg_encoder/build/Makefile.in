@@ -51,7 +51,7 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 bin_PROGRAMS = $(am__EXEEXT_1)
-subdir = mxn_sensor/build
+subdir = jpeg_encoder/build
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/depcomp
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -62,15 +62,15 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-am__EXEEXT_1 = mxn_sensor_arm$(EXEEXT)
+am__EXEEXT_1 = jpeg_encoder_arm$(EXEEXT)
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_mxn_sensor_arm_OBJECTS = main.$(OBJEXT) module_ce.$(OBJEXT) \
+am_jpeg_encoder_arm_OBJECTS = main.$(OBJEXT) module_ce.$(OBJEXT) \
 	module_fb.$(OBJEXT) module_rc.$(OBJEXT) module_v4l2.$(OBJEXT) \
 	runtime.$(OBJEXT) thread_input.$(OBJEXT) \
 	thread_video.$(OBJEXT)
-mxn_sensor_arm_OBJECTS = $(am_mxn_sensor_arm_OBJECTS)
-mxn_sensor_arm_LDADD = $(LDADD)
+jpeg_encoder_arm_OBJECTS = $(am_jpeg_encoder_arm_OBJECTS)
+jpeg_encoder_arm_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -84,8 +84,8 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(mxn_sensor_arm_SOURCES)
-DIST_SOURCES = $(mxn_sensor_arm_SOURCES)
+SOURCES = $(jpeg_encoder_arm_SOURCES)
+DIST_SOURCES = $(jpeg_encoder_arm_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -218,18 +218,18 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-MAIN_TARGET_NAME = mxn_sensor_arm
-DSP_HEADERS_DIR = $(srcdir)/../../../../dsp/ov7670/mxn_sensor/
+MAIN_TARGET_NAME = jpeg_encoder_arm
+DSP_HEADERS_DIR = $(srcdir)/../../../../dsp/ov7670/jpeg_encoder/
 AM_CPPFLAGS = -I$(DSP_HEADERS_DIR) -I../include -Wall -Wextra
 AM_CXXFLAGS = -Weffc++
-mxn_sensor_arm_SOURCES = $(srcdir)/../src/main.c \
-                         $(srcdir)/../src/module_ce.c \
-                         $(srcdir)/../src/module_fb.c \
-                         $(srcdir)/../src/module_rc.c \
-                         $(srcdir)/../src/module_v4l2.c \
-                         $(srcdir)/../src/runtime.c \
-                         $(srcdir)/../src/thread_input.c \
-                         $(srcdir)/../src/thread_video.c
+jpeg_encoder_arm_SOURCES = $(srcdir)/../src/main.c \
+			  $(srcdir)/../src/module_ce.c \
+			  $(srcdir)/../src/module_fb.c \
+			  $(srcdir)/../src/module_rc.c \
+			  $(srcdir)/../src/module_v4l2.c \
+			  $(srcdir)/../src/runtime.c \
+			  $(srcdir)/../src/thread_input.c \
+			  $(srcdir)/../src/thread_video.c
 
 all: all-am
 
@@ -244,9 +244,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign mxn_sensor/build/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign jpeg_encoder/build/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign mxn_sensor/build/Makefile
+	  $(AUTOMAKE) --foreign jpeg_encoder/build/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -311,9 +311,9 @@ clean-binPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-mxn_sensor_arm$(EXEEXT): $(mxn_sensor_arm_OBJECTS) $(mxn_sensor_arm_DEPENDENCIES) $(EXTRA_mxn_sensor_arm_DEPENDENCIES) 
-	@rm -f mxn_sensor_arm$(EXEEXT)
-	$(LINK) $(mxn_sensor_arm_OBJECTS) $(mxn_sensor_arm_LDADD) $(LIBS)
+jpeg_encoder_arm$(EXEEXT): $(jpeg_encoder_arm_OBJECTS) $(jpeg_encoder_arm_DEPENDENCIES) $(EXTRA_jpeg_encoder_arm_DEPENDENCIES) 
+	@rm -f jpeg_encoder_arm$(EXEEXT)
+	$(LINK) $(jpeg_encoder_arm_OBJECTS) $(jpeg_encoder_arm_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
