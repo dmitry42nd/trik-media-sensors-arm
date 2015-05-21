@@ -445,7 +445,7 @@ int rcInputGetTargetDetectParams(RCInput* _rc,
   _targetDetectParams->m_detectSatTolerance = _rc->m_targetDetectSatTolerance;
   _targetDetectParams->m_detectVal          = _rc->m_targetDetectVal;
   _targetDetectParams->m_detectValTolerance = _rc->m_targetDetectValTolerance;
-
+  _targetDetectParams->m_setHsvRange        = true;
   return 0;
 }
 
@@ -483,7 +483,7 @@ int rcInputUnsafeReportTargetLocation(RCInput* _rc, const TargetLocation* _targe
     return EINVAL;
 
   if (!_rc->m_fifoOutputFd != -1)
-    dprintf(_rc->m_fifoOutputFd, "loc: %d %d %d\n", _targetLocation->m_targetX, _targetLocation->m_targetY, _targetLocation->m_targetSize);
+    dprintf(_rc->m_fifoOutputFd, "loc: %d %d %d\n", _targetLocation->target[0].x, _targetLocation->target[0].y, _targetLocation->target[0].size);
 
   return 0;
 }

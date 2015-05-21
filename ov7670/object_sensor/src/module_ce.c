@@ -217,12 +217,13 @@ static int do_transcodeFrame(CodecEngine* _ce,
   tcInArgs.base.size = sizeof(tcInArgs);
   tcInArgs.base.numBytes = _srcFrameSize;
   tcInArgs.base.inputID = 1; // must be non-zero, otherwise caching issues appear
-  tcInArgs.alg.detectHueFrom = makeValueWrap( _targetDetectParams->m_detectHue, -_targetDetectParams->m_detectHueTolerance, 0, 359);
-  tcInArgs.alg.detectHueTo   = makeValueWrap( _targetDetectParams->m_detectHue, +_targetDetectParams->m_detectHueTolerance, 0, 359);
-  tcInArgs.alg.detectSatFrom = makeValueRange(_targetDetectParams->m_detectSat, -_targetDetectParams->m_detectSatTolerance, 0, 100);
-  tcInArgs.alg.detectSatTo   = makeValueRange(_targetDetectParams->m_detectSat, +_targetDetectParams->m_detectSatTolerance, 0, 100);
-  tcInArgs.alg.detectValFrom = makeValueRange(_targetDetectParams->m_detectVal, -_targetDetectParams->m_detectValTolerance, 0, 100);
-  tcInArgs.alg.detectValTo   = makeValueRange(_targetDetectParams->m_detectVal, +_targetDetectParams->m_detectValTolerance, 0, 100);
+  tcInArgs.alg.setHsvRange = _targetDetectParams->m_setHsvRange;
+  tcInArgs.alg.detectHue       = _targetDetectParams->m_detectHue;
+  tcInArgs.alg.detectHueTol   = _targetDetectParams->m_detectHueTolerance;
+  tcInArgs.alg.detectSat       = _targetDetectParams->m_detectSat;
+  tcInArgs.alg.detectSatTol   = _targetDetectParams->m_detectSatTolerance;
+  tcInArgs.alg.detectVal       = _targetDetectParams->m_detectVal;
+  tcInArgs.alg.detectValTol   = _targetDetectParams->m_detectValTolerance;
   tcInArgs.alg.autoDetectHsv = _targetDetectCommand->m_cmd;
 
   TRIK_VIDTRANSCODE_CV_OutArgs tcOutArgs;
@@ -278,10 +279,13 @@ static int do_transcodeFrame(CodecEngine* _ce,
   if(_ce->m_videoOutEnable)
     memcpy(_dstFramePtr, _ce->m_dstBuffer, *_dstFrameUsed);
 
-  _targetLocation->m_targetX    = tcOutArgs.alg.targetX;
-  _targetLocation->m_targetY    = tcOutArgs.alg.targetY;
-  _targetLocation->m_targetSize = tcOutArgs.alg.targetSize;
 
+  memcpy(&(_targetLocation->target[0]), &(tcOutArgs.alg.target[0]), sizeof(Target));
+/*
+  _targetLocation->m_targetX    = tcOutArgs.alg.target[0].x;
+  _targetLocation->m_targetY    = tcOutArgs.alg.target[0].y;
+  _targetLocation->m_targetSize = tcOutArgs.alg.target[0].size;
+*/
   _targetDetectParamsResult->m_detectHue          = tcOutArgs.alg.detectHue;
   _targetDetectParamsResult->m_detectHueTolerance = tcOutArgs.alg.detectHueTolerance;
   _targetDetectParamsResult->m_detectSat          = tcOutArgs.alg.detectSat;
@@ -468,11 +472,11 @@ int codecEngineTranscodeFrame(CodecEngine* _ce,
   {
     fprintf(stderr, "Transcoded frame %p[%zu] -> %p[%zu/%zu]\n",
             _srcFramePtr, _srcFrameSize, _dstFramePtr, _dstFrameSize, *_dstFrameUsed);
-    if (_targetLocation->m_targetSize > 0)
+    if (_targetLocation->target[0].size > 0)
       fprintf(stderr, "Target detected at %d x %d @ %d\n",
-              _targetLocation->m_targetX,
-              _targetLocation->m_targetY,
-              _targetLocation->m_targetSize);
+              _targetLocation->target[0].x,
+              _targetLocation->target[0].y,
+              _targetLocation->target[0].size);
   }
 
   return res;

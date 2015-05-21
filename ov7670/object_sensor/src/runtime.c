@@ -17,7 +17,7 @@
 static const RuntimeConfig s_runtimeConfig = {
   .m_verbose = false,
   .m_codecEngineConfig = { "dsp_server.xe674", "vidtranscode_cv" },
-  .m_v4l2Config        = { "/dev/video0", 320, 240, V4L2_PIX_FMT_YUV422P },
+  .m_v4l2Config        = { "/dev/video0", 640, 480, V4L2_PIX_FMT_YUV422P },
   .m_fbConfig          = { "/dev/fb0" },
   .m_rcConfig          = { "/run/object-sensor.in.fifo", "/run/object-sensor.out.fifo", true  }
 };
@@ -393,6 +393,7 @@ int runtimeGetTargetDetectParams(Runtime* _runtime, TargetDetectParams* _targetD
 
   pthread_mutex_lock(&_runtime->m_state.m_mutex);
   *_targetDetectParams = _runtime->m_state.m_targetDetectParams;
+  _runtime->m_state.m_targetDetectParams.m_setHsvRange = false;
   pthread_mutex_unlock(&_runtime->m_state.m_mutex);
   return 0;
 }

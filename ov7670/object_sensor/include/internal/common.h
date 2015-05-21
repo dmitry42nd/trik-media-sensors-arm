@@ -26,6 +26,7 @@ typedef struct TargetDetectParams
   int m_detectSatTolerance;
   int m_detectVal;
   int m_detectValTolerance;
+  bool m_setHsvRange;
 } TargetDetectParams;
 
 typedef struct TargetDetectCommand
@@ -33,11 +34,16 @@ typedef struct TargetDetectCommand
   int m_cmd;
 } TargetDetectCommand;
 
+typedef struct Target
+{
+  int8_t x;
+  int8_t y;
+  uint8_t size;
+} Target;
+
 typedef struct TargetLocation
 {
-  int m_targetX;
-  int m_targetY;
-  int m_targetSize;
+  Target target[8];
 } TargetLocation;
 
 
