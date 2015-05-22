@@ -1,4 +1,4 @@
-MAIN_TARGET_NAME        = object_sensors_arm
+MAIN_TARGET_NAME        = object_sensor_arm
 DSP_HEADERS_DIR		= $(srcdir)/../../../../dsp/ov7670/object_sensor/
 
 AM_CPPFLAGS             = -I$(DSP_HEADERS_DIR) -I../include -Wall -Wextra 
