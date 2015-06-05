@@ -218,14 +218,15 @@ static int do_transcodeFrame(CodecEngine* _ce,
   tcInArgs.base.numBytes = _srcFrameSize;
   tcInArgs.base.inputID = 1; // must be non-zero, otherwise caching issues appear
   tcInArgs.alg.setHsvRange = _targetDetectParams->m_setHsvRange;
-  tcInArgs.alg.detectHue       = _targetDetectParams->m_detectHue;
-  tcInArgs.alg.detectHueTol   = _targetDetectParams->m_detectHueTolerance;
-  tcInArgs.alg.detectSat       = _targetDetectParams->m_detectSat;
-  tcInArgs.alg.detectSatTol   = _targetDetectParams->m_detectSatTolerance;
-  tcInArgs.alg.detectVal       = _targetDetectParams->m_detectVal;
-  tcInArgs.alg.detectValTol   = _targetDetectParams->m_detectValTolerance;
+  tcInArgs.alg.detectHueFrom = makeValueWrap( _targetDetectParams->m_detectHue, -_targetDetectParams->m_detectHueTolerance, 0, 359);
+  tcInArgs.alg.detectHueTo   = makeValueWrap( _targetDetectParams->m_detectHue, +_targetDetectParams->m_detectHueTolerance, 0, 359);
+  tcInArgs.alg.detectSatFrom = makeValueRange(_targetDetectParams->m_detectSat, -_targetDetectParams->m_detectSatTolerance, 0, 100);
+  tcInArgs.alg.detectSatTo   = makeValueRange(_targetDetectParams->m_detectSat, +_targetDetectParams->m_detectSatTolerance, 0, 100);
+  tcInArgs.alg.detectValFrom = makeValueRange(_targetDetectParams->m_detectVal, -_targetDetectParams->m_detectValTolerance, 0, 100);
+  tcInArgs.alg.detectValTo   = makeValueRange(_targetDetectParams->m_detectVal, +_targetDetectParams->m_detectValTolerance, 0, 100);
   tcInArgs.alg.autoDetectHsv = _targetDetectCommand->m_cmd;
 
+  //fprintf(stderr, "set: %d\n", tcInArgs.alg.setHsvRange);
   TRIK_VIDTRANSCODE_CV_OutArgs tcOutArgs;
   memset(&tcOutArgs,    0, sizeof(tcOutArgs));
   tcOutArgs.base.size = sizeof(tcOutArgs);
