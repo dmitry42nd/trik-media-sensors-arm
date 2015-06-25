@@ -6,7 +6,7 @@ AM_CXXFLAGS             = -Weffc++
 
 bin_PROGRAMS            = $(MAIN_TARGET_NAME)
 
-object_sensors_arm_SOURCES   	= $(srcdir)/../src/main.c \
+object_sensor_arm_SOURCES   	= $(srcdir)/../src/main.c \
 		                  $(srcdir)/../src/module_ce.c \
 			          $(srcdir)/../src/module_fb.c \
                         	  $(srcdir)/../src/module_rc.c \
