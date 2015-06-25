@@ -16,8 +16,7 @@
 
 #include "internal/module_rc.h"
 
-const char* delim = "c3f97bee765fd86b209951ead9f8a583";
-int delim_size;
+
 
 
 static int do_openFifoInput(RCInput* _rc, const char* _fifoInputName)
@@ -183,7 +182,8 @@ static int do_closeFifoOutput(RCInput* _rc)
   if (_rc == NULL)
     return EINVAL;
 
-  if (_rc->m_fifoOutputFd != -1 && close(_rc->m_fifoOutputFd) != 0)
+  if (   _rc->m_fifoOutputFd != -1
+      && close(_rc->m_fifoOutputFd) != 0)
   {
     res = errno;
     fprintf(stderr, "close() failed: %d\n", res);
@@ -336,9 +336,6 @@ static int do_readFifoInput(RCInput* _rc)
 int rcInputInit(bool _verbose)
 {
   (void)_verbose;
-  
-  delim_size = strlen(delim);
-  
   return 0;
 }
 
@@ -480,21 +477,13 @@ int rcInputGetTargetDetectCommand(RCInput* _rc, TargetDetectCommand* _targetDete
 }
 
 #warning TODO code below if unsafe since it is used from another thread; consider reworking
-int rcInputUnsafeReportTargetLocation(RCInput* _rc, void* _jpegImageBuffer, int _jpegImageSize)
+int rcInputUnsafeReportTargetLocation(RCInput* _rc, const TargetLocation* _targetLocation)
 {
-  if (_rc == NULL)
+  if (_rc == NULL || _targetLocation == NULL)
     return EINVAL;
 
-  if(_jpegImageSize+delim_size > JPEG_IMAGE_BUFFER_SIZE) {
-    fprintf(stderr, "do_transcode_frame: too small jpg buffer! image + delimeter size: %d\n", _jpegImageSize+delim_size);
-
-    return 0;
-  }
-
-  if (!_rc->m_fifoOutputFd != -1) {
-    memcpy(_jpegImageBuffer+_jpegImageSize, delim, delim_size);
-    write(_rc->m_fifoOutputFd, _jpegImageBuffer, _jpegImageSize+delim_size);
-  }
+  if (!_rc->m_fifoOutputFd != -1)
+    dprintf(_rc->m_fifoOutputFd, "loc: %d %d %d\n", _targetLocation->m_targetX, _targetLocation->m_targetY, _targetLocation->m_targetSize);
 
   return 0;
 }
