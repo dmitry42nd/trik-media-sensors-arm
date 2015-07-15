@@ -62,15 +62,15 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-am__EXEEXT_1 = object_sensors_arm$(EXEEXT)
+am__EXEEXT_1 = object_sensor_arm$(EXEEXT)
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_object_sensors_arm_OBJECTS = main.$(OBJEXT) module_ce.$(OBJEXT) \
+am_object_sensor_arm_OBJECTS = main.$(OBJEXT) module_ce.$(OBJEXT) \
 	module_fb.$(OBJEXT) module_rc.$(OBJEXT) module_v4l2.$(OBJEXT) \
 	runtime.$(OBJEXT) thread_input.$(OBJEXT) \
 	thread_video.$(OBJEXT)
-object_sensors_arm_OBJECTS = $(am_object_sensors_arm_OBJECTS)
-object_sensors_arm_LDADD = $(LDADD)
+object_sensor_arm_OBJECTS = $(am_object_sensor_arm_OBJECTS)
+object_sensor_arm_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -84,8 +84,8 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(object_sensors_arm_SOURCES)
-DIST_SOURCES = $(object_sensors_arm_SOURCES)
+SOURCES = $(object_sensor_arm_SOURCES)
+DIST_SOURCES = $(object_sensor_arm_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -218,11 +218,11 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-MAIN_TARGET_NAME = object_sensors_arm
+MAIN_TARGET_NAME = object_sensor_arm
 DSP_HEADERS_DIR = $(srcdir)/../../../../dsp/ov7670/object_sensor/
 AM_CPPFLAGS = -I$(DSP_HEADERS_DIR) -I../include -Wall -Wextra 
 AM_CXXFLAGS = -Weffc++
-object_sensors_arm_SOURCES = $(srcdir)/../src/main.c \
+object_sensor_arm_SOURCES = $(srcdir)/../src/main.c \
 		                  $(srcdir)/../src/module_ce.c \
 			          $(srcdir)/../src/module_fb.c \
                         	  $(srcdir)/../src/module_rc.c \
@@ -311,9 +311,9 @@ clean-binPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-object_sensors_arm$(EXEEXT): $(object_sensors_arm_OBJECTS) $(object_sensors_arm_DEPENDENCIES) $(EXTRA_object_sensors_arm_DEPENDENCIES) 
-	@rm -f object_sensors_arm$(EXEEXT)
-	$(LINK) $(object_sensors_arm_OBJECTS) $(object_sensors_arm_LDADD) $(LIBS)
+object_sensor_arm$(EXEEXT): $(object_sensor_arm_OBJECTS) $(object_sensor_arm_DEPENDENCIES) $(EXTRA_object_sensor_arm_DEPENDENCIES) 
+	@rm -f object_sensor_arm$(EXEEXT)
+	$(LINK) $(object_sensor_arm_OBJECTS) $(object_sensor_arm_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
