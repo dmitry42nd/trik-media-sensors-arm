@@ -16875,7 +16875,7 @@ CPPFLAGS+=" ${PKGCONFIG_CFLAGS}"
 LIBS+=" ${PKGCONFIG_LIBS}"
 
 
-ac_config_files="$ac_config_files Makefile object_sensor/Makefile object_sensor/build/Makefile line_sensor/Makefile line_sensor/build/Makefile edge_line_sensor/Makefile edge_line_sensor/build/Makefile mxn_sensor/Makefile mxn_sensor/build/Makefile jpeg_encoder/Makefile jpeg_encoder/build/Makefile"
+ac_config_files="$ac_config_files Makefile object_sensor/Makefile object_sensor/src/Makefile line_sensor/Makefile line_sensor/src/Makefile edge_line_sensor/Makefile edge_line_sensor/src/Makefile mxn_sensor/Makefile mxn_sensor/src/Makefile jpeg_encoder/Makefile jpeg_encoder/src/Makefile"
 
 
 cat >confcache <<\_ACEOF
@@ -17991,15 +17991,15 @@ do
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "object_sensor/Makefile") CONFIG_FILES="$CONFIG_FILES object_sensor/Makefile" ;;
-    "object_sensor/build/Makefile") CONFIG_FILES="$CONFIG_FILES object_sensor/build/Makefile" ;;
+    "object_sensor/src/Makefile") CONFIG_FILES="$CONFIG_FILES object_sensor/src/Makefile" ;;
     "line_sensor/Makefile") CONFIG_FILES="$CONFIG_FILES line_sensor/Makefile" ;;
-    "line_sensor/build/Makefile") CONFIG_FILES="$CONFIG_FILES line_sensor/build/Makefile" ;;
+    "line_sensor/src/Makefile") CONFIG_FILES="$CONFIG_FILES line_sensor/src/Makefile" ;;
     "edge_line_sensor/Makefile") CONFIG_FILES="$CONFIG_FILES edge_line_sensor/Makefile" ;;
-    "edge_line_sensor/build/Makefile") CONFIG_FILES="$CONFIG_FILES edge_line_sensor/build/Makefile" ;;
+    "edge_line_sensor/src/Makefile") CONFIG_FILES="$CONFIG_FILES edge_line_sensor/src/Makefile" ;;
     "mxn_sensor/Makefile") CONFIG_FILES="$CONFIG_FILES mxn_sensor/Makefile" ;;
-    "mxn_sensor/build/Makefile") CONFIG_FILES="$CONFIG_FILES mxn_sensor/build/Makefile" ;;
+    "mxn_sensor/src/Makefile") CONFIG_FILES="$CONFIG_FILES mxn_sensor/src/Makefile" ;;
     "jpeg_encoder/Makefile") CONFIG_FILES="$CONFIG_FILES jpeg_encoder/Makefile" ;;
-    "jpeg_encoder/build/Makefile") CONFIG_FILES="$CONFIG_FILES jpeg_encoder/build/Makefile" ;;
+    "jpeg_encoder/src/Makefile") CONFIG_FILES="$CONFIG_FILES jpeg_encoder/src/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

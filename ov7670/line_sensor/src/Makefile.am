@@ -6,14 +6,14 @@ AM_CXXFLAGS		= -Weffc++
 
 bin_PROGRAMS		= $(MAIN_TARGET_NAME)
 
-line_sensor_arm_SOURCES	= $(srcdir)/../src/main.c \
-			  $(srcdir)/../src/module_ce.c \
-			  $(srcdir)/../src/module_fb.c \
-			  $(srcdir)/../src/module_rc.c \
-			  $(srcdir)/../src/module_v4l2.c \
-			  $(srcdir)/../src/runtime.c \
-			  $(srcdir)/../src/thread_input.c \
-			  $(srcdir)/../src/thread_video.c
+line_sensor_arm_SOURCES	= main.c \
+			  module_ce.c \
+			  module_fb.c \
+			  module_rc.c \
+			  module_v4l2.c \
+			  runtime.c \
+			  thread_input.c \
+			  thread_video.c
 
 
 #TESTS			= test-xxx

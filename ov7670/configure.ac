@@ -59,15 +59,15 @@ LIBS+=" ${PKGCONFIG_LIBS}"
 
 AC_CONFIG_FILES([Makefile
 		 object_sensor/Makefile
-		 object_sensor/build/Makefile
+		 object_sensor/src/Makefile
 		 line_sensor/Makefile
-                 line_sensor/build/Makefile
+                 line_sensor/src/Makefile
                  edge_line_sensor/Makefile
-                 edge_line_sensor/build/Makefile
+                 edge_line_sensor/src/Makefile
                  mxn_sensor/Makefile
-                 mxn_sensor/build/Makefile
+                 mxn_sensor/src/Makefile
 		 jpeg_encoder/Makefile
-                 jpeg_encoder/build/Makefile])
+                 jpeg_encoder/src/Makefile])
 
 AC_OUTPUT
 

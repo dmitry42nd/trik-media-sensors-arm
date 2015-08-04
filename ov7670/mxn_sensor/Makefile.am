@@ -10,4 +10,4 @@ noinst_HEADERS		= include/internal/common.h \
 			  include/internal/thread_video.h
 
 
-SUBDIRS			= build
+SUBDIRS			= src 
