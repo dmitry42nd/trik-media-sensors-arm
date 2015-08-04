@@ -3006,8 +3006,6 @@ END
     as_fn_error $? "Your 'rm' program is bad, sorry." "$LINENO" 5
   fi
 fi
-#AC_CONFIG_SRCDIR([object_sensor/src])
-#		  line_sensor/src])
 ac_config_headers="$ac_config_headers config.h"
 
 
@@ -16870,7 +16868,7 @@ CPPFLAGS+=" ${PKGCONFIG_CFLAGS}"
 LIBS+=" ${PKGCONFIG_LIBS}"
 
 
-ac_config_files="$ac_config_files Makefile object_sensor/Makefile object_sensor/src/Makefile line_sensor/Makefile line_sensor/src/Makefile edge_line_sensor/Makefile edge_line_sensor/src/Makefile mxn_sensor/Makefile mxn_sensor/src/Makefile jpeg_encoder/Makefile jpeg_encoder/src/Makefile"
+ac_config_files="$ac_config_files Makefile object_sensor/Makefile object_sensor/src/Makefile line_sensor/Makefile line_sensor/src/Makefile edge_line_sensor/Makefile edge_line_sensor/src/Makefile mxn_sensor/Makefile mxn_sensor/src/Makefile motion_sensor/Makefile motion_sensor/src/Makefile jpeg_encoder/Makefile jpeg_encoder/src/Makefile"
 
 
 cat >confcache <<\_ACEOF
@@ -17993,6 +17991,8 @@ do
     "edge_line_sensor/src/Makefile") CONFIG_FILES="$CONFIG_FILES edge_line_sensor/src/Makefile" ;;
     "mxn_sensor/Makefile") CONFIG_FILES="$CONFIG_FILES mxn_sensor/Makefile" ;;
     "mxn_sensor/src/Makefile") CONFIG_FILES="$CONFIG_FILES mxn_sensor/src/Makefile" ;;
+    "motion_sensor/Makefile") CONFIG_FILES="$CONFIG_FILES motion_sensor/Makefile" ;;
+    "motion_sensor/src/Makefile") CONFIG_FILES="$CONFIG_FILES motion_sensor/src/Makefile" ;;
     "jpeg_encoder/Makefile") CONFIG_FILES="$CONFIG_FILES jpeg_encoder/Makefile" ;;
     "jpeg_encoder/src/Makefile") CONFIG_FILES="$CONFIG_FILES jpeg_encoder/src/Makefile" ;;
 
