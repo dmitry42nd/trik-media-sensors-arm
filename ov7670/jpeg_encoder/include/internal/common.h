@@ -40,6 +40,11 @@ typedef struct TargetLocation
   int m_targetY;
   int m_targetSize;
 } TargetLocation;
+
+typedef struct TargetJpgQuality
+{
+  uint8_t jpgQuality;
+} TargetJpgQuality;
 /*
 typedef struct TargetLocation
 {

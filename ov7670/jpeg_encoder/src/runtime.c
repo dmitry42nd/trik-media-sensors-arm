@@ -70,6 +70,7 @@ bool runtimeParseArgs(Runtime* _runtime, int _argc, char* const _argv[])
     { "rc-fifo-in",		1,	NULL,	0   }, // 7
     { "rc-fifo-out",		1,	NULL,	0   },
     { "video-out",		1,	NULL,	0   },
+    { "jpeg-qual",		1,	NULL,	0   },
     { "verbose",		0,	NULL,	'v' },
     { "help",			0,	NULL,	'h' },
     { NULL,			0,	NULL,	0   }
@@ -117,7 +118,7 @@ bool runtimeParseArgs(Runtime* _runtime, int _argc, char* const _argv[])
           case 7  : cfg->m_rcConfig.m_fifoInput  = optarg;					break;
           case 7+1: cfg->m_rcConfig.m_fifoOutput = optarg;					break;
           case 7+2: cfg->m_rcConfig.m_videoOutEnable = atoi(optarg); break;
-
+          case 7+3: _runtime->m_state.m_targetJpgQuality.jpgQuality = atoi(optarg); break;
           default:
             return false;
         }
@@ -400,6 +401,17 @@ int runtimeGetTargetDetectParams(Runtime* _runtime, TargetDetectParams* _targetD
 
   pthread_mutex_lock(&_runtime->m_state.m_mutex);
   *_targetDetectParams = _runtime->m_state.m_targetDetectParams;
+  pthread_mutex_unlock(&_runtime->m_state.m_mutex);
+  return 0;
+}
+
+int runtimeGetTargetJpgQuality(Runtime* _runtime, TargetJpgQuality* _targetJpgQuality)
+{
+  if (_runtime == NULL || _targetJpgQuality == NULL)
+    return EINVAL;
+
+  pthread_mutex_lock(&_runtime->m_state.m_mutex);
+  *_targetJpgQuality = _runtime->m_state.m_targetJpgQuality;
   pthread_mutex_unlock(&_runtime->m_state.m_mutex);
   return 0;
 }
