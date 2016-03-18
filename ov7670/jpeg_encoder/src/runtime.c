@@ -60,6 +60,7 @@ bool runtimeParseArgs(Runtime* _runtime, int _argc, char* const _argv[])
   static const char* s_optstring = "vh";
   static const struct option s_longopts[] =
   {
+    //{ "jpeg-qual",		1,	NULL,	0   },
     { "ce-server",		1,	NULL,	0   }, // 0
     { "ce-codec",		1,	NULL,	0   },
     { "v4l2-path",		1,	NULL,	0   }, // 2
@@ -71,6 +72,7 @@ bool runtimeParseArgs(Runtime* _runtime, int _argc, char* const _argv[])
     { "rc-fifo-out",		1,	NULL,	0   },
     { "video-out",		1,	NULL,	0   },
     { "jpeg-qual",		1,	NULL,	0   },
+    { "white-black",		1,	NULL,	0   },
     { "verbose",		0,	NULL,	'v' },
     { "help",			0,	NULL,	'h' },
     { NULL,			0,	NULL,	0   }
@@ -118,7 +120,8 @@ bool runtimeParseArgs(Runtime* _runtime, int _argc, char* const _argv[])
           case 7  : cfg->m_rcConfig.m_fifoInput  = optarg;					break;
           case 7+1: cfg->m_rcConfig.m_fifoOutput = optarg;					break;
           case 7+2: cfg->m_rcConfig.m_videoOutEnable = atoi(optarg); break;
-          case 7+3: _runtime->m_state.m_targetJpgQuality.jpgQuality = atoi(optarg); break;
+          case 7+3: _runtime->m_state.m_targetJpgParams.jpgQuality = atoi(optarg); break;
+          case 7+4: _runtime->m_state.m_targetJpgParams.ifBlackAndWhite = atoi(optarg); break;
           default:
             return false;
         }
@@ -405,13 +408,13 @@ int runtimeGetTargetDetectParams(Runtime* _runtime, TargetDetectParams* _targetD
   return 0;
 }
 
-int runtimeGetTargetJpgQuality(Runtime* _runtime, TargetJpgQuality* _targetJpgQuality)
+int runtimeGetTargetJpgParams(Runtime* _runtime, TargetJpgParams* _targetJpgParams)
 {
-  if (_runtime == NULL || _targetJpgQuality == NULL)
+  if (_runtime == NULL || _targetJpgParams == NULL)
     return EINVAL;
 
   pthread_mutex_lock(&_runtime->m_state.m_mutex);
-  *_targetJpgQuality = _runtime->m_state.m_targetJpgQuality;
+  *_targetJpgParams = _runtime->m_state.m_targetJpgParams;
   pthread_mutex_unlock(&_runtime->m_state.m_mutex);
   return 0;
 }
