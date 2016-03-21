@@ -83,7 +83,7 @@ static int threadVideoSelectLoop(Runtime* _runtime, CodecEngine* _ce, V4L2Input*
   
   if ((res = runtimeGetTargetJpgParams(_runtime, &targetJpgParams)) != 0)
   {
-    fprintf(stderr, "runtimeGetTargetJpgQuality() failed: %d\n", res);
+    fprintf(stderr, "runtimeGetTargetJpgParams() failed: %d\n", res);
     return res;
   }
 

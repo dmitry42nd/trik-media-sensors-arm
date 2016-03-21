@@ -46,6 +46,8 @@ void runtimeReset(Runtime* _runtime)
   pthread_mutex_init(&_runtime->m_state.m_mutex, NULL);
   memset(&_runtime->m_state.m_targetDetectParams,  0, sizeof(_runtime->m_state.m_targetDetectParams));
   memset(&_runtime->m_state.m_targetDetectCommand, 0, sizeof(_runtime->m_state.m_targetDetectCommand));
+  memset(&_runtime->m_state.m_targetJpgParams, 0, sizeof(_runtime->m_state.m_targetJpgParams));//maybe not
+  _runtime->m_state.m_targetJpgParams.jpgQuality = 40; 
 }
 
 
@@ -60,7 +62,6 @@ bool runtimeParseArgs(Runtime* _runtime, int _argc, char* const _argv[])
   static const char* s_optstring = "vh";
   static const struct option s_longopts[] =
   {
-    //{ "jpeg-qual",		1,	NULL,	0   },
     { "ce-server",		1,	NULL,	0   }, // 0
     { "ce-codec",		1,	NULL,	0   },
     { "v4l2-path",		1,	NULL,	0   }, // 2
@@ -157,6 +158,8 @@ void runtimeArgsHelpMessage(Runtime* _runtime, const char* _arg0)
                   "   --rc-fifo-in            <remote-control-fifo-input>\n"
                   "   --rc-fifo-out           <remote-control-fifo-output>\n"
                   "   --video-out             <enable-video-output>\n"
+                  "   --jpeg-qual    <desired-video-quality>\n"
+                  "   --black-white  <if-video-should-be-black-and-white>\n"
                   "   --verbose\n"
                   "   --help\n",
           _arg0);
