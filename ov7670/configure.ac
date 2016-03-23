@@ -1,14 +1,14 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.65])
-AC_INIT([trik-media-sensors], [0.0.2-trunk])
+AC_PREREQ([2.69])
+AC_INIT([trik-media-sensors],[0.0.2-trunk])
 AM_INIT_AUTOMAKE([foreign color-tests -Wall -Werror])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 
 # We want more functions
-AC_GNU_SOURCE
+AC_USE_SYSTEM_EXTENSIONS
 
 # Checks for programs.
 AC_PROG_CC
@@ -17,7 +17,7 @@ AC_PROG_CXX
 CXXFLAGS+=" -std=c++0x"
 
 # Checks for libraries.
-AC_PROG_LIBTOOL
+LT_INIT
 PKG_PROG_PKG_CONFIG
 
 

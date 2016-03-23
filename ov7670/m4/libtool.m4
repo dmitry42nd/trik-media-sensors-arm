@@ -1234,15 +1234,20 @@ dnl lt_sysroot will always be passed unquoted.  We quote it here
 dnl in case the user passed a directory name.
 lt_sysroot=
 case ${with_libtool_sysroot} in #(
- yes)
+ no)
    if test "$GCC" = yes; then
      lt_sysroot=`$CC --print-sysroot 2>/dev/null`
+     # Treat "/" the same a an unset sysroot. It seems to be more
+     # compatible across host platforms that way!?
+     if test "$lt_sysroot" = /; then
+       lt_sysroot=
+     fi
    fi
+   ;; #(
+ yes|''|/)
    ;; #(
  /*)
    lt_sysroot=`echo "$with_libtool_sysroot" | sed -e "$sed_quote_subst"`
-   ;; #(
- no|'')
    ;; #(
  *)
    AC_MSG_RESULT([${with_libtool_sysroot}])

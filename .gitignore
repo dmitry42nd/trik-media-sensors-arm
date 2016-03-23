@@ -1,0 +1,9 @@
+*~
+*.o
+.deps
+Makefile
+/ov7670/config.h
+/ov7670/config.status
+/ov7670/config.log
+/ov7670/*libtool
+/ov7670/stamp-h1

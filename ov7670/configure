@@ -4510,7 +4510,6 @@ $as_echo "$ac_cv_safe_to_define___extensions__" >&6; }
 
 
 
-
 # Checks for programs.
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
@@ -7992,15 +7991,20 @@ fi
 
 lt_sysroot=
 case ${with_libtool_sysroot} in #(
- yes)
+ no)
    if test "$GCC" = yes; then
      lt_sysroot=`$CC --print-sysroot 2>/dev/null`
+     # Treat "/" the same a an unset sysroot. It seems to be more
+     # compatible across host platforms that way!?
+     if test "$lt_sysroot" = /; then
+       lt_sysroot=
+     fi
    fi
+   ;; #(
+ yes|''|/)
    ;; #(
  /*)
    lt_sysroot=`echo "$with_libtool_sysroot" | sed -e "$sed_quote_subst"`
-   ;; #(
- no|'')
    ;; #(
  *)
    { $as_echo "$as_me:${as_lineno-$LINENO}: result: ${with_libtool_sysroot}" >&5
