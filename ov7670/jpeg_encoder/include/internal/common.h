@@ -44,7 +44,7 @@ typedef struct TargetLocation
 typedef struct TargetJpgParams
 {
   uint8_t jpgQuality;
-  uint8_t ifBlackAndWhite;
+  bool ifBlackAndWhite;
 } TargetJpgParams;
 /*
 typedef struct TargetLocation

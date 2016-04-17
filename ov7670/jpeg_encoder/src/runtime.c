@@ -122,7 +122,10 @@ bool runtimeParseArgs(Runtime* _runtime, int _argc, char* const _argv[])
           case 7+1: cfg->m_rcConfig.m_fifoOutput = optarg;					break;
           case 7+2: cfg->m_rcConfig.m_videoOutEnable = atoi(optarg); break;
           case 7+3: _runtime->m_state.m_targetJpgParams.jpgQuality = atoi(optarg); break;
-          case 7+4: _runtime->m_state.m_targetJpgParams.ifBlackAndWhite = atoi(optarg); break;
+          case 7+4: 
+            if (strcmp(optarg, "false") == 0) _runtime->m_state.m_targetJpgParams.ifBlackAndWhite = false;
+            else _runtime->m_state.m_targetJpgParams.ifBlackAndWhite = true; 
+            break;
           default:
             return false;
         }
