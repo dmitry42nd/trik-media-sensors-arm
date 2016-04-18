@@ -198,6 +198,7 @@ static int makeValueWrap(int _val, int _adj, int _min, int _max)
 
 static int do_transcodeFrame(CodecEngine* _ce,
                              const void* _srcFramePtr, size_t _srcFrameSize,
+                             const TargetJpgParams* _targetJpgParams,
                              /*
                              void* _dstFramePtr, size_t _dstFrameSize, size_t* _dstFrameUsed,
                              const TargetDetectParams* _targetDetectParams,
@@ -221,6 +222,8 @@ static int do_transcodeFrame(CodecEngine* _ce,
   tcInArgs.base.size = sizeof(tcInArgs);
   tcInArgs.base.numBytes = _srcFrameSize;
   tcInArgs.base.inputID = 1; // must be non-zero, otherwise caching issues appear
+  tcInArgs.alg.jpgImageQuality = _targetJpgParams->jpgQuality;
+  tcInArgs.alg.ifBlackAndWhite = _targetJpgParams->ifBlackAndWhite;
 //  tcInArgs.alg.autoDetectHsv = _targetDetectCommand->m_cmd;
 
   TRIK_VIDTRANSCODE_CV_OutArgs tcOutArgs;
@@ -439,6 +442,7 @@ int codecEngineStop(CodecEngine* _ce)
 
 int codecEngineTranscodeFrame(CodecEngine* _ce,
                               const void* _srcFramePtr, size_t _srcFrameSize,
+                              const TargetJpgParams* _targetJpgParams,
                               /*
                               void* _dstFramePtr, size_t _dstFrameSize, size_t* _dstFrameUsed,
                               const TargetDetectParams* _targetDetectParams,
@@ -456,7 +460,7 @@ int codecEngineTranscodeFrame(CodecEngine* _ce,
     return ENOTCONN;
 
   res = do_transcodeFrame(_ce,
-                          _srcFramePtr, _srcFrameSize,
+                          _srcFramePtr, _srcFrameSize, _targetJpgParams,
                           /*_dstFramePtr, _dstFrameSize, _dstFrameUsed,
                           _targetDetectParams,
                           _targetDetectCommand,

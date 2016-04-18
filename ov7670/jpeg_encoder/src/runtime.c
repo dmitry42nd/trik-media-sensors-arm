@@ -46,6 +46,8 @@ void runtimeReset(Runtime* _runtime)
   pthread_mutex_init(&_runtime->m_state.m_mutex, NULL);
   memset(&_runtime->m_state.m_targetDetectParams,  0, sizeof(_runtime->m_state.m_targetDetectParams));
   memset(&_runtime->m_state.m_targetDetectCommand, 0, sizeof(_runtime->m_state.m_targetDetectCommand));
+  memset(&_runtime->m_state.m_targetJpgParams, 0, sizeof(_runtime->m_state.m_targetJpgParams));//maybe not
+  _runtime->m_state.m_targetJpgParams.jpgQuality = 40; 
 }
 
 
@@ -70,6 +72,8 @@ bool runtimeParseArgs(Runtime* _runtime, int _argc, char* const _argv[])
     { "rc-fifo-in",		1,	NULL,	0   }, // 7
     { "rc-fifo-out",		1,	NULL,	0   },
     { "video-out",		1,	NULL,	0   },
+    { "jpeg-qual",		1,	NULL,	0   },
+    { "white-black",		1,	NULL,	0   },
     { "verbose",		0,	NULL,	'v' },
     { "help",			0,	NULL,	'h' },
     { NULL,			0,	NULL,	0   }
@@ -117,7 +121,11 @@ bool runtimeParseArgs(Runtime* _runtime, int _argc, char* const _argv[])
           case 7  : cfg->m_rcConfig.m_fifoInput  = optarg;					break;
           case 7+1: cfg->m_rcConfig.m_fifoOutput = optarg;					break;
           case 7+2: cfg->m_rcConfig.m_videoOutEnable = atoi(optarg); break;
-
+          case 7+3: _runtime->m_state.m_targetJpgParams.jpgQuality = atoi(optarg); break;
+          case 7+4: 
+            if (strcmp(optarg, "false") == 0) _runtime->m_state.m_targetJpgParams.ifBlackAndWhite = false;
+            else _runtime->m_state.m_targetJpgParams.ifBlackAndWhite = true; 
+            break;
           default:
             return false;
         }
@@ -153,6 +161,8 @@ void runtimeArgsHelpMessage(Runtime* _runtime, const char* _arg0)
                   "   --rc-fifo-in            <remote-control-fifo-input>\n"
                   "   --rc-fifo-out           <remote-control-fifo-output>\n"
                   "   --video-out             <enable-video-output>\n"
+                  "   --jpeg-qual    <desired-video-quality>\n"
+                  "   --black-white  <if-video-should-be-black-and-white>\n"
                   "   --verbose\n"
                   "   --help\n",
           _arg0);
@@ -400,6 +410,17 @@ int runtimeGetTargetDetectParams(Runtime* _runtime, TargetDetectParams* _targetD
 
   pthread_mutex_lock(&_runtime->m_state.m_mutex);
   *_targetDetectParams = _runtime->m_state.m_targetDetectParams;
+  pthread_mutex_unlock(&_runtime->m_state.m_mutex);
+  return 0;
+}
+
+int runtimeGetTargetJpgParams(Runtime* _runtime, TargetJpgParams* _targetJpgParams)
+{
+  if (_runtime == NULL || _targetJpgParams == NULL)
+    return EINVAL;
+
+  pthread_mutex_lock(&_runtime->m_state.m_mutex);
+  *_targetJpgParams = _runtime->m_state.m_targetJpgParams;
   pthread_mutex_unlock(&_runtime->m_state.m_mutex);
   return 0;
 }

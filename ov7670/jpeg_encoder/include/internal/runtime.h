@@ -46,6 +46,7 @@ typedef struct RuntimeState
   TargetDetectParams      m_targetDetectParams;
   TargetDetectCommand     m_targetDetectCommand;
   bool                    m_videoOutEnable;
+  TargetJpgParams         m_targetJpgParams;
 } RuntimeState;
 
 typedef struct Runtime

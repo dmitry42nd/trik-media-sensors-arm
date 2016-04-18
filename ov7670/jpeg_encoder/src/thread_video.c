@@ -79,6 +79,15 @@ static int threadVideoSelectLoop(Runtime* _runtime, CodecEngine* _ce, V4L2Input*
     return res;
   }
 */
+  TargetJpgParams  targetJpgParams;
+  
+  if ((res = runtimeGetTargetJpgParams(_runtime, &targetJpgParams)) != 0)
+  {
+    fprintf(stderr, "runtimeGetTargetJpgParams() failed: %d\n", res);
+    return res;
+  }
+
+
   if ((res = runtimeGetVideoOutParams(_runtime, &(_ce->m_videoOutEnable))) != 0)
   {
     fprintf(stderr, "runtimeGetVideoOutParams() failed: %d\n", res);
@@ -89,6 +98,7 @@ static int threadVideoSelectLoop(Runtime* _runtime, CodecEngine* _ce, V4L2Input*
 //  size_t frameDstUsed = frameDstSize;
   if ((res = codecEngineTranscodeFrame(_ce,
                                        frameSrcPtr, frameSrcSize,
+                                       &targetJpgParams,
                                        /*frameDstPtr, frameDstSize, &frameDstUsed,
                                        &targetDetectParams,
                                        &targetDetectCommand,
