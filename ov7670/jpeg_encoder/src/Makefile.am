@@ -1,5 +1,5 @@
 MAIN_TARGET_NAME        = jpeg_encoder_arm
-DSP_HEADERS_DIR         = $(srcdir)/../../../../dsp/ov7670/jpeg_encoder/
+DSP_HEADERS_DIR         = $(srcdir)/../../../../dsp/trik/ov7670/jpeg_encoder/
 
 AM_CPPFLAGS		= -I$(DSP_HEADERS_DIR) -I../include -Wall -Wextra
 AM_CXXFLAGS		= -Weffc++
