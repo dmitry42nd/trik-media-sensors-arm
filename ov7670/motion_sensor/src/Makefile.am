@@ -1,5 +1,5 @@
 MAIN_TARGET_NAME        = motion_sensor_arm
-DSP_HEADERS_DIR		= $(srcdir)/../../../../dsp/ov7670/motion_sensor/
+DSP_HEADERS_DIR		= $(srcdir)/../../../../trik-media-sensors-dsp/trik/ov7670/motion_sensor/
 
 AM_CPPFLAGS             = -I$(DSP_HEADERS_DIR) -I../include -Wall -Wextra 
 AM_CXXFLAGS             = -Weffc++
