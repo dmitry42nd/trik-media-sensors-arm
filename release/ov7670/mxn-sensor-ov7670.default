@@ -1,4 +1,4 @@
 #Linetracer default opts
 VIDEO_PORT=0
 VIDEO_PATH=/dev/video$VIDEO_PORT
-DEFAULT_OPS="--v4l2-path=$VIDEO_PATH --mxn-width-m=3 --mxn-height-n=3"
+DEFAULT_OPS='--v4l2-path=$VIDEO_PATH --mxn-width-m=3 --mxn-height-n=3'
