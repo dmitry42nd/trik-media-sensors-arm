@@ -59,9 +59,9 @@ LIBS+=" ${PKGCONFIG_LIBS}"
 
 AC_CONFIG_FILES([Makefile
 		 object_sensor/Makefile
-		 object_sensor/build/Makefile
+		 object_sensor/src/Makefile
 		 line_sensor/Makefile
-                 line_sensor/build/Makefile])
+                 line_sensor/src/Makefile])
 #                 edge_line_sensor/Makefile
 #                 edge_line_sensor/build/Makefile
 #                 mxn_sensor/Makefile
