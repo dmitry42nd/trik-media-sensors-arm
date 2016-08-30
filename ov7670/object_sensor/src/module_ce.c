@@ -280,7 +280,7 @@ static int do_transcodeFrame(CodecEngine* _ce,
     memcpy(_dstFramePtr, _ce->m_dstBuffer, *_dstFrameUsed);
 
 
-  memcpy(&(_targetLocation->target[0]), &(tcOutArgs.alg.target[0]), sizeof(Target));
+  memcpy(_targetLocation->target, tcOutArgs.alg.target, MAX_OBJECTS_N*sizeof(Target));
 /*
   _targetLocation->m_targetX    = tcOutArgs.alg.target[0].x;
   _targetLocation->m_targetY    = tcOutArgs.alg.target[0].y;

@@ -367,6 +367,7 @@ int rcInputOpen(RCInput* _rc, const RCConfig* _config)
   _rc->m_fifoInputReadBuffer = malloc(_rc->m_fifoInputReadBufferSize);
 
   _rc->m_videoOutEnable = _config->m_videoOutEnable;
+  _rc->m_objectsN = _config->m_objectsN < MAX_OBJECTS_N ? (_config->m_objectsN > 0 ? _config->m_objectsN : 1 ) : MAX_OBJECTS_N;
   return 0;
 }
 
@@ -483,7 +484,13 @@ int rcInputUnsafeReportTargetLocation(RCInput* _rc, const TargetLocation* _targe
     return EINVAL;
 
   if (!_rc->m_fifoOutputFd != -1)
-    dprintf(_rc->m_fifoOutputFd, "loc: %d %d %d\n", _targetLocation->target[0].x, _targetLocation->target[0].y, _targetLocation->target[0].size);
+    if(_rc->m_objectsN == 1)
+      dprintf(_rc->m_fifoOutputFd, "loc: %d %d %d\n", _targetLocation->target[0].x, _targetLocation->target[0].y, _targetLocation->target[0].size);
+    else {
+      for(int i = 0; i < _rc->m_objectsN; ++i) {
+        dprintf(_rc->m_fifoOutputFd, "loc%d: %d %d %d\n", i, _targetLocation->target[i].x, _targetLocation->target[i].y, _targetLocation->target[i].size);
+      }
+    }
 
   return 0;
 }

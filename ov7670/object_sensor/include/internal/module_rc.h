@@ -15,6 +15,7 @@ typedef struct RCConfig // what user wants to set
   const char* m_fifoInput;
   const char* m_fifoOutput;
   bool m_videoOutEnable;
+  int m_objectsN;
 } RCConfig;
 
 typedef struct RCInput
@@ -41,6 +42,7 @@ typedef struct RCInput
 
   bool                     m_videoOutParamsUpdated;
   bool                     m_videoOutEnable;
+  int                      m_objectsN;
 } RCInput;
 
 

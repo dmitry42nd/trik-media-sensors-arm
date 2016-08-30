@@ -8,6 +8,7 @@
 extern "C" {
 #endif // __cplusplus
 
+#define MAX_OBJECTS_N 8
 
 typedef struct ImageDescription
 {
@@ -43,7 +44,7 @@ typedef struct Target
 
 typedef struct TargetLocation
 {
-  Target target[8];
+  Target target[MAX_OBJECTS_N];
 } TargetLocation;
 
 
